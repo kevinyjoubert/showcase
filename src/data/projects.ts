@@ -15,9 +15,9 @@ export const projects: Project[] = [
     image: "/images/erp.jpg"
   },
   {
-    title: "Sistema 2",
-    description: "Sistema desenvolvido 2",
-    route: "/projects/sistema2",
+    title: "Gráficos",
+    description: "Uma demonstração completa de visualizações de dados interativos em Dashboards.",
+    route: "/projects/dashboards/Charts",
     techs: ["React", "ChartJS"],
     image: "/images/erp.jpg"
   },
