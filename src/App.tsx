@@ -1,14 +1,29 @@
-import { Routes, Route } from "react-router-dom"
-import Home from "./pages/Home"
-import LinuxDesktop from "./projects/sistema1/LinuxDesktop"
+
+import { Toaster as Sonner } from "@/components/homepage/ui/sonner";
+import { TooltipProvider } from "@/components/homepage/ui/tooltip";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Splash from "./pages/Splash";
+import Home from "./pages/Home";
+import LinuxDesktop from "./projects/sistema1/LinuxDesktop";
+
+const queryClient = new QueryClient();
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/projects/sistema1" element={<LinuxDesktop />} />
-      <Route path="/projects/sistema2" element={<div>Sistema 2</div>} />
-      <Route path="/projects/sistema3" element={<div>Sistema 3</div>} />
-    </Routes>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Splash />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/projects/sistema1" element={<LinuxDesktop />} />
+            <Route path="/projects/sistema2" element={<div>Sistema 2</div>} />
+            <Route path="/projects/sistema3" element={<div>Sistema 3</div>} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
   )
 }
