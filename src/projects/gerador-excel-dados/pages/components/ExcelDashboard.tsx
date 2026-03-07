@@ -16,8 +16,7 @@ import "ag-grid-community/styles/ag-grid.css"
 import "ag-grid-community/styles/ag-theme-quartz.css"
 import { AG_GRID_PT_BR } from "@/lib/agGridPtBR"
 
-import { Maximize2, Layout } from "lucide-react"
-
+import { Maximize2, Layout, ChevronLeft, ChevronRight } from "lucide-react"
 
 interface Props {
   data: any[]
@@ -34,8 +33,11 @@ type ChartConfig = {
 export default function ExcelDashboard({ data }: Props) {
 
   const [charts, setCharts] = useState<ChartConfig[]>([])
+  const [sidebarOpen, setSidebarOpen] = useState(true)
 
-  const [layout, setLayout] = useState<"split" | "gridMax" | "chartsMax" | "chartsHidden">("split")
+  const [layout, setLayout] = useState<
+    "split" | "gridMax" | "chartsMax" | "chartsHidden"
+  >("split")
 
   function addChart(config: Omit<ChartConfig, "id">) {
     setCharts((prev) => [
@@ -50,12 +52,12 @@ export default function ExcelDashboard({ data }: Props) {
   const columns: ColDef[] =
     data.length > 0
       ? Object.keys(data[0]).map((key) => ({
-        field: key,
-        sortable: true,
-        filter: true,
-        resizable: true,
-        editable: true
-      }))
+          field: key,
+          sortable: true,
+          filter: true,
+          resizable: true,
+          editable: true
+        }))
       : []
 
   const columnNames = data.length ? Object.keys(data[0]) : []
@@ -74,10 +76,9 @@ export default function ExcelDashboard({ data }: Props) {
             <button
               onClick={() => setLayout("split")}
               className={`flex items-center gap-2 px-3 py-1.5 text-sm rounded-md transition
-        ${layout === "split"
-                  ? "bg-blue-600 text-white shadow"
-                  : "text-slate-600 hover:bg-slate-100"
-                }`}
+              ${layout === "split"
+                ? "bg-blue-600 text-white shadow"
+                : "text-slate-600 hover:bg-slate-100"}`}
             >
               <Layout size={14} />
               Dividir
@@ -86,10 +87,9 @@ export default function ExcelDashboard({ data }: Props) {
             <button
               onClick={() => setLayout("gridMax")}
               className={`flex items-center gap-2 px-3 py-1.5 text-sm rounded-md transition
-        ${layout === "gridMax"
-                  ? "bg-blue-600 text-white shadow"
-                  : "text-slate-600 hover:bg-slate-100"
-                }`}
+              ${layout === "gridMax"
+                ? "bg-blue-600 text-white shadow"
+                : "text-slate-600 hover:bg-slate-100"}`}
             >
               <Maximize2 size={14} />
               Dashboard
@@ -98,10 +98,9 @@ export default function ExcelDashboard({ data }: Props) {
             <button
               onClick={() => setLayout("chartsMax")}
               className={`flex items-center gap-2 px-3 py-1.5 text-sm rounded-md transition
-        ${layout === "chartsMax"
-                  ? "bg-blue-600 text-white shadow"
-                  : "text-slate-600 hover:bg-slate-100"
-                }`}
+              ${layout === "chartsMax"
+                ? "bg-blue-600 text-white shadow"
+                : "text-slate-600 hover:bg-slate-100"}`}
             >
               <Maximize2 size={14} />
               Gráficos
@@ -111,12 +110,12 @@ export default function ExcelDashboard({ data }: Props) {
 
         </div>
 
-
         {/* DASHBOARD */}
         {(layout === "split" || layout === "gridMax" || layout === "chartsHidden") && (
           <div
-            className={`ag-theme-quartz rounded-lg border overflow-hidden ${layout === "split" ? "h-1/2" : "flex-1"
-              }`}
+            className={`ag-theme-quartz rounded-lg border overflow-hidden ${
+              layout === "split" ? "h-1/2" : "flex-1"
+            }`}
           >
 
             <AgGridReact
@@ -143,12 +142,12 @@ export default function ExcelDashboard({ data }: Props) {
           </div>
         )}
 
-
         {/* GRÁFICOS */}
         {(layout === "split" || layout === "chartsMax") && (
           <div
-            className={`overflow-auto ${layout === "split" ? "h-1/2" : "flex-1"
-              }`}
+            className={`overflow-auto ${
+              layout === "split" ? "h-1/2" : "flex-1"
+            }`}
           >
 
             {charts.length === 0 && (
@@ -168,29 +167,54 @@ export default function ExcelDashboard({ data }: Props) {
 
       </div>
 
+      {/* CONTAINER SIDEBAR */}
+      <div className="relative flex">
 
-      {/* SIDEBAR */}
-      <div className="w-[320px] border-l bg-white flex flex-col">
+        {/* BOTÃO TOGGLE */}
+        <button
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          className="absolute -left-4 top-1/2 -translate-y-1/2
+                     bg-white border border-slate-200 shadow-md
+                     rounded-full w-8 h-8 flex items-center justify-center
+                     hover:bg-slate-100 transition z-10"
+        >
+          {sidebarOpen ? (
+            <ChevronRight size={16} />
+          ) : (
+            <ChevronLeft size={16} />
+          )}
+        </button>
 
-        <div className="p-4 border-b">
-          <h2 className="font-semibold text-slate-800">
-            Sugestões de Gráficos
-          </h2>
+        {/* SIDEBAR */}
+        <div
+          className={`border-l bg-white flex flex-col transition-all duration-300
+          ${sidebarOpen ? "w-[320px]" : "w-3 overflow-hidden"}`}
+        >
 
-          <p className="text-xs text-slate-500">
-            Baseado nas colunas detectadas
-          </p>
-        </div>
+          {/* HEADER */}
+          <div className="p-4 border-b">
+            <h2 className="font-semibold text-slate-800">
+              Sugestões de Gráficos
+            </h2>
 
-        <div className="flex-1 overflow-auto">
-          <ChartSuggestions data={data} />
-        </div>
+            <p className="text-xs text-slate-500">
+              Baseado nas colunas detectadas
+            </p>
+          </div>
 
-        <div className="border-t">
-          <ChartBuilder
-            columns={columnNames}
-            onCreateChart={addChart}
-          />
+          {/* SUGESTÕES */}
+          <div className="flex-1 overflow-auto">
+            <ChartSuggestions data={data} />
+          </div>
+
+          {/* BUILDER */}
+          <div className="border-t">
+            <ChartBuilder
+              columns={columnNames}
+              onCreateChart={addChart}
+            />
+          </div>
+
         </div>
 
       </div>
