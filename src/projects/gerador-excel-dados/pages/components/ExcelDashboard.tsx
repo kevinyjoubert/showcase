@@ -24,9 +24,11 @@ interface Props {
 }
 
 type ChartConfig = {
+  id: string
   type: string
-  x: string
-  y: string
+  dimensions: string[]
+  metric: string
+  aggregation: "sum" | "count" | "avg"
 }
 
 export default function ExcelDashboard({ data }: Props) {
@@ -35,8 +37,14 @@ export default function ExcelDashboard({ data }: Props) {
 
   const [layout, setLayout] = useState<"split" | "gridMax" | "chartsMax" | "chartsHidden">("split")
 
-  function addChart(config: ChartConfig) {
-    setCharts((prev) => [...prev, config])
+  function addChart(config: Omit<ChartConfig, "id">) {
+    setCharts((prev) => [
+      ...prev,
+      {
+        ...config,
+        id: crypto.randomUUID()
+      }
+    ])
   }
 
   const columns: ColDef[] =
@@ -134,8 +142,8 @@ export default function ExcelDashboard({ data }: Props) {
             )}
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {charts.map((chart, i) => (
-                <ChartRenderer key={i} config={chart} data={data} />
+              {charts.map((chart) => (
+                <ChartRenderer key={chart.id} config={chart} data={data} />
               ))}
             </div>
 

@@ -6,7 +6,8 @@ import {
   Tooltip,
   CartesianGrid,
   ResponsiveContainer,
-  Legend
+  Legend,
+  LabelList
 } from "recharts"
 
 interface BarItem {
@@ -18,9 +19,10 @@ interface Props {
   data: any[]
   xKey: string
   bars: BarItem[]
+  children?: React.ReactNode
 }
 
-export function BarChartComponent({ data, xKey, bars }: Props) {
+export function BarChartComponent({ data, xKey, bars, children }: Props) {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <BarChart data={data}>
@@ -41,7 +43,18 @@ export function BarChartComponent({ data, xKey, bars }: Props) {
             dataKey={bar.key}
             fill={bar.color}
             radius={[6, 6, 0, 0]}
-          />
+          >
+
+            {children}
+
+            <LabelList
+              dataKey={bar.key}
+              position="top"
+              fontSize={12}
+              fill="#374151"
+            />
+
+          </Bar>
         ))}
 
       </BarChart>
