@@ -20,7 +20,7 @@ export const projects: Project[] = [
     description:
       "Painel de análise de dados com gráficos interativos, filtros dinâmicos e exportação de relatórios.",
     techs: ["React", "Recharts", "Node.js"],
-    slug: "dashboard",
+    slug: "dashboards",
     image: "/placeholder.svg",
   },
   {
