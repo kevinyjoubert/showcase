@@ -45,7 +45,8 @@ export default function ExcelDashboard({ data }: Props) {
         field: key,
         sortable: true,
         filter: true,
-        resizable: true
+        resizable: true,
+        editable: true
       }))
       : []
 
@@ -105,6 +106,13 @@ export default function ExcelDashboard({ data }: Props) {
               defaultColDef={{
                 flex: 1,
                 minWidth: 120
+              }}
+              rowSelection={{
+                mode: "multiRow",
+                enableClickSelection: true
+              }}
+              rowClassRules={{
+                "bg-blue-100": "node.isSelected()"
               }}
             />
 
