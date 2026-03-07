@@ -52,7 +52,7 @@ export default function ExcelDashboard({ data }: Props) {
         id: crypto.randomUUID()
       }
     ])
-    
+
   }
 
   const columns: ColDef[] =
@@ -77,7 +77,7 @@ export default function ExcelDashboard({ data }: Props) {
         {/* CONTROLES */}
         <div className="flex items-center gap-3">
 
-          <div className="flex bg-white border border-slate-200 rounded-lg p-1 shadow-sm">
+          <div className="flex bg-white border border-slate-200 rounded-lg shadow-sm">
 
             <button
               onClick={() => setLayout("split")}
@@ -151,7 +151,7 @@ export default function ExcelDashboard({ data }: Props) {
         {/* GRÁFICOS */}
         {(layout === "split" || layout === "chartsMax") && (
           <div
-            className={`overflow-auto ${
+            className={`overflow-auto pr-4 pb-4 ${
               layout === "split" ? "h-1/2" : "flex-1"
             }`}
           >
