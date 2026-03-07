@@ -29,7 +29,7 @@ export const projects: Project[] = [
       "Envie um Excel e veja dashboards e insights sendo criados automaticamente..",
     techs: ["React", "Recharts", "Node.js"],
     slug: "gerador-excel-dados",
-    image: "public/images/dashboards/dashboards.jpg",
+    image: "public/images/gerador-excel-dados/gerador-excel-dados.jpg",
   },
   {
     title: "API Gateway",
