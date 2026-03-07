@@ -87,7 +87,7 @@ export default function Splash() {
               className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.03] px-4 py-1.5 text-sm"
             >
               <span className="h-2 w-2 rounded-full bg-[hsl(var(--accent-rose))]" />
-              <span className="text-white/60">Portfólio · Keviny & Laryssa</span>
+              <span className="text-white/60">Portfólio</span>
             </motion.div>
 
             {/* Title line 1 */}

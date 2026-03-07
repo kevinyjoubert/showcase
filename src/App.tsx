@@ -1,6 +1,4 @@
 
-import { Toaster as Sonner } from "@/components/homepage/ui/sonner";
-import { TooltipProvider } from "@/components/homepage/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Splash from "./pages/Splash";
@@ -13,8 +11,6 @@ const queryClient = new QueryClient();
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Sonner />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Splash />} />
@@ -24,7 +20,6 @@ export default function App() {
             <Route path="/projects/sistema3" element={<div>Sistema 3</div>} />
           </Routes>
         </BrowserRouter>
-      </TooltipProvider>
     </QueryClientProvider>
   )
 }

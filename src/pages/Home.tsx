@@ -1,10 +1,16 @@
+import { useState } from "react";
 import { projects } from "../data/projects";
 import ProjectCard from "../components/homepage/ProjectCard";
 import ScrollReveal from "../components/homepage/ScrollReveal";
+import ContactModal from "../components/homepage/ContactModal";
 
 export default function Home() {
+  const [isContactOpen, setIsContactOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
+
       {/* NAVBAR */}
       <nav className="sticky top-0 z-40 border-b border-border/50 bg-background/80 backdrop-blur-lg">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
@@ -20,12 +26,12 @@ export default function Home() {
             <a href="#sobre" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
               Sobre
             </a>
-            <a
-              href="mailto:contato@exemplo.com"
+            <button
+              onClick={() => setIsContactOpen(true)}
               className="rounded-full border border-[hsl(var(--accent-indigo)/0.3)] px-4 py-2 text-xs font-medium text-[hsl(var(--accent-indigo))] transition-all duration-200 hover:bg-[hsl(var(--accent-indigo-light))]"
             >
               Contato
-            </a>
+            </button>
           </div>
         </div>
       </nav>
@@ -71,9 +77,12 @@ export default function Home() {
                     <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[hsl(var(--accent-rose))] text-xs font-bold text-white ring-2 ring-background">
                       LG
                     </div>
+                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[hsl(var(--accent-purple-red))] text-xs font-bold text-white ring-2 ring-background">
+                      BP
+                    </div>
                   </div>
                   <span className="text-sm text-muted-foreground">
-                    Keviny Joubert & Laryssa Gabriela
+                    Keviny Joubert, Laryssa Gabriela & Beatriz Paiva
                   </span>
                 </div>
               </ScrollReveal>
@@ -136,14 +145,15 @@ export default function Home() {
       <section id="projetos" className="py-20">
         <div className="mx-auto max-w-6xl px-6">
           <ScrollReveal>
-            <div className="mb-12 flex items-center gap-4">
-              <div className="h-px flex-1 bg-border" />
-              <h2 className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">
+            <div className="mb-16 text-center">
+              <div className="mx-auto mb-4 h-px w-12 bg-gradient-to-r from-transparent via-[hsl(var(--accent-indigo))] to-transparent" />
+              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
                 Projetos
               </h2>
-              <div className="h-px flex-1 bg-border" />
+              <div className="mx-auto mt-4 h-px w-12 bg-gradient-to-r from-transparent via-[hsl(var(--accent-rose))] to-transparent" />
             </div>
           </ScrollReveal>
+
 
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {projects.map((project, i) => (
@@ -156,43 +166,101 @@ export default function Home() {
       </section>
 
       {/* ABOUT */}
-      <section id="sobre" className="border-t border-border py-20">
-        <div className="mx-auto max-w-3xl px-6 text-center">
+      <section id="sobre" className="border-t border-border py-12">
+        <div className="mx-auto max-w-6xl px-6">
           <ScrollReveal>
-            <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-              Quem fez isso
-            </p>
-            <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
-              Keviny & Laryssa
+            <div className="mb-4 text-center">
+              <span className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
+                Quem fez isso
+              </span>
+            </div>
+            <h2 className="mb-6 text-center text-3xl font-bold tracking-tight sm:text-4xl">
+              Nossa Equipe
             </h2>
           </ScrollReveal>
 
           <ScrollReveal delay={0.1}>
-            <p className="mx-auto mt-6 max-w-xl text-muted-foreground">
-              Somos desenvolvedores apaixonados por criar experiências digitais
-              que resolvem problemas reais. Este showcase reúne nossos projetos
-              mais relevantes — cada um construído com cuidado e propósito.
+            <p className="mx-auto mb-16 max-w-2xl text-center text-base leading-relaxed text-muted-foreground">
+              Keviny e Laryssa cuidam do desenvolvimento, enquanto Beatriz cuida
+              de toda a parte comercial — de clientes a contratos.
             </p>
           </ScrollReveal>
 
-          <ScrollReveal delay={0.2}>
-            <div className="mt-10 flex items-center justify-center gap-12">
-              <div className="flex flex-col items-center gap-3">
-                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[hsl(var(--accent-indigo))] text-lg font-bold text-white">
+          
+
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {/* Keviny */}
+            <ScrollReveal delay={0.15}>
+              <div className="group rounded-2xl border border-border bg-card p-6 text-center transition-all duration-300 hover:border-[hsl(var(--accent-indigo)/0.4)] hover:shadow-lg">
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[hsl(var(--accent-indigo))] text-lg font-bold text-white ring-4 ring-[hsl(var(--accent-indigo)/0.15)]">
                   KJ
                 </div>
-                <span className="text-sm font-medium">Keviny Joubert</span>
-                <span className="text-xs text-muted-foreground">Desenvolvedor</span>
+                <h4 className="text-base font-semibold text-foreground">Keviny Joubert</h4>
+                <p className="mt-1 text-sm text-[hsl(var(--accent-indigo))]">Desenvolvedor Full Stack</p>
               </div>
+            </ScrollReveal>
 
-              <div className="h-12 w-px bg-border" />
-
-              <div className="flex flex-col items-center gap-3">
-                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[hsl(var(--accent-rose))] text-lg font-bold text-white">
+            {/* Laryssa */}
+            <ScrollReveal delay={0.25}>
+              <div className="group rounded-2xl border border-border bg-card p-6 text-center transition-all duration-300 hover:border-[hsl(var(--accent-rose)/0.4)] hover:shadow-lg">
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[hsl(var(--accent-rose))] text-lg font-bold text-white ring-4 ring-[hsl(var(--accent-rose)/0.15)]">
                   LG
                 </div>
-                <span className="text-sm font-medium">Laryssa Gabriela</span>
-                <span className="text-xs text-muted-foreground">Desenvolvedora</span>
+                <h4 className="text-base font-semibold text-foreground">Laryssa Gabriela</h4>
+                <p className="mt-1 text-sm text-[hsl(var(--accent-rose))]">Desenvolvedora Full Stack</p>
+              </div>
+            </ScrollReveal>
+
+            {/* Beatriz */}
+            <ScrollReveal delay={0.35}>
+              <div className="group rounded-2xl border border-border bg-card p-6 text-center transition-all duration-300 hover:border-[hsl(var(--accent-purple-red)/0.4)] hover:shadow-lg">
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[hsl(var(--accent-purple-red))] text-lg font-bold text-white ring-4 ring-[hsl(var(--accent-purple-red)/0.15)]">
+                  BP
+                </div>
+                <h4 className="text-base font-semibold text-foreground">Beatriz Paiva</h4>
+                <p className="mt-1 text-sm text-[hsl(var(--accent-purple-red))]">Executiva Comercial</p>
+                <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                  Responsável por vendas, captação de clientes e gestão de contratos.
+                </p>
+              </div>
+            </ScrollReveal>
+          </div>
+        </div>
+      </section>
+
+      {/* CONTACT */}
+      <section id="contato" className="relative overflow-hidden border-t border-border py-24">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute left-1/2 top-0 h-[500px] w-[600px] -translate-x-1/2 rounded-full bg-[hsl(var(--accent-purple-red)/0.06)] blur-[140px]" />
+        </div>
+
+        <div className="relative mx-auto max-w-6xl px-6">
+          <ScrollReveal>
+            <div className="text-center">
+              <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+                Vamos trabalhar juntos?
+              </h2>
+              <p className="mx-auto mt-3 max-w-lg text-base text-muted-foreground">
+                Entre em contato com a Beatriz para orçamentos, parcerias e contratos.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.2}>
+            <div className="mx-auto mt-12 max-w-md rounded-2xl border border-border bg-card p-8 text-center shadow-sm">
+              <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-[hsl(var(--accent-purple-red))] text-xl font-bold text-white ring-4 ring-[hsl(var(--accent-purple-red)/0.2)]">
+                BP
+              </div>
+              <h3 className="text-lg font-semibold text-foreground">Beatriz Paiva</h3>
+              <p className="mt-1 text-sm text-[hsl(var(--accent-purple-red))]">Executiva Comercial</p>
+
+              <div className="mt-6">
+                <button
+                  onClick={() => setIsContactOpen(true)}
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[hsl(var(--accent-purple-red))] px-6 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
+                >
+                  ✉️ Enviar mensagem
+                </button>
               </div>
             </div>
           </ScrollReveal>
@@ -207,7 +275,7 @@ export default function Home() {
             <span className="text-[hsl(var(--accent-indigo))]">CASE</span>
           </span>
           <span className="text-xs text-muted-foreground">
-            © 2025 Keviny Joubert & Laryssa Gabriela
+            © 2025 Keviny Joubert, Laryssa Gabriela & Beatriz Paiva.
           </span>
         </div>
       </footer>
