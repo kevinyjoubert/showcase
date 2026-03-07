@@ -38,7 +38,6 @@ export default function ChartBuilder({ columns, onCreateChart }: Props) {
   }
 
   return (
-    // <div className="p-5 space-y-5">
     <div className="p-5 pt-0 space-y-5">
 
       {/* <div> */}

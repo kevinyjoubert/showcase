@@ -57,13 +57,36 @@ export default function ExcelDashboard({ data }: Props) {
 
   const columns: ColDef[] =
     data.length > 0
-      ? Object.keys(data[0]).map((key) => ({
+      ? Object.keys(data[0]).map((key) => {
+
+        const value = data[0][key]
+
+        let filter: any = "agTextColumnFilter"
+        let valueFormatter
+
+        if (typeof value === "number") {
+          filter = "agNumberColumnFilter"
+
+          valueFormatter = (p: any) =>
+            p.value?.toLocaleString("pt-BR")
+        }
+
+        if (value instanceof Date) {
+          filter = "agDateColumnFilter"
+
+          valueFormatter = (p: any) =>
+            p.value?.toLocaleDateString("pt-BR")
+        }
+
+        return {
           field: key,
           sortable: true,
-          filter: true,
           resizable: true,
-          editable: true
-        }))
+          editable: true,
+          filter,
+          valueFormatter
+        }
+      })
       : []
 
   const columnNames = data.length ? Object.keys(data[0]) : []
@@ -83,8 +106,8 @@ export default function ExcelDashboard({ data }: Props) {
               onClick={() => setLayout("split")}
               className={`flex items-center gap-2 px-3 py-1.5 text-sm rounded-md transition
               ${layout === "split"
-                ? "bg-blue-600 text-white shadow"
-                : "text-slate-600 hover:bg-slate-100"}`}
+                  ? "bg-blue-600 text-white shadow"
+                  : "text-slate-600 hover:bg-slate-100"}`}
             >
               <Layout size={14} />
               Dividir
@@ -94,8 +117,8 @@ export default function ExcelDashboard({ data }: Props) {
               onClick={() => setLayout("gridMax")}
               className={`flex items-center gap-2 px-3 py-1.5 text-sm rounded-md transition
               ${layout === "gridMax"
-                ? "bg-blue-600 text-white shadow"
-                : "text-slate-600 hover:bg-slate-100"}`}
+                  ? "bg-blue-600 text-white shadow"
+                  : "text-slate-600 hover:bg-slate-100"}`}
             >
               <Maximize2 size={14} />
               Dashboard
@@ -105,8 +128,8 @@ export default function ExcelDashboard({ data }: Props) {
               onClick={() => setLayout("chartsMax")}
               className={`flex items-center gap-2 px-3 py-1.5 text-sm rounded-md transition
               ${layout === "chartsMax"
-                ? "bg-blue-600 text-white shadow"
-                : "text-slate-600 hover:bg-slate-100"}`}
+                  ? "bg-blue-600 text-white shadow"
+                  : "text-slate-600 hover:bg-slate-100"}`}
             >
               <Maximize2 size={14} />
               Gráficos
@@ -119,9 +142,8 @@ export default function ExcelDashboard({ data }: Props) {
         {/* DASHBOARD */}
         {(layout === "split" || layout === "gridMax" || layout === "chartsHidden") && (
           <div
-            className={`ag-theme-quartz rounded-lg border overflow-hidden ${
-              layout === "split" ? "h-1/2" : "flex-1"
-            }`}
+            className={`ag-theme-quartz rounded-lg border overflow-hidden ${layout === "split" ? "h-1/2" : "flex-1"
+              }`}
           >
 
             <AgGridReact
@@ -151,9 +173,8 @@ export default function ExcelDashboard({ data }: Props) {
         {/* GRÁFICOS */}
         {(layout === "split" || layout === "chartsMax") && (
           <div
-            className={`overflow-auto pr-4 pb-4 ${
-              layout === "split" ? "h-1/2" : "flex-1"
-            }`}
+            className={`overflow-auto pr-4 pb-4 ${layout === "split" ? "h-1/2" : "flex-1"
+              }`}
           >
 
             {charts.length === 0 && (

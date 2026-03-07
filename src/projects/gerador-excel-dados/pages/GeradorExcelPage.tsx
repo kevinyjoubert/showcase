@@ -5,6 +5,7 @@ import { Upload, BarChart3, Zap, FileText } from "lucide-react"
 import { useState } from "react"
 import ExcelDashboard from "./components/ExcelDashboard"
 import * as XLSX from "xlsx"
+import { normalizeExcelData } from "@/utils/normalizeExcelData"
 
 
 export default function GeradorExcelPage() {
@@ -23,9 +24,13 @@ export default function GeradorExcelPage() {
 
             const sheet = workbook.Sheets[sheetName]
 
-            const json = XLSX.utils.sheet_to_json(sheet)
+            const json = XLSX.utils.sheet_to_json(sheet, {
+                raw: true
+            })
 
-            setData(json as any[])
+            const normalized = normalizeExcelData(json as any[])
+
+            setData(normalized)
         }
 
         reader.readAsArrayBuffer(file)
