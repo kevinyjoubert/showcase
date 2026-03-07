@@ -31,20 +31,62 @@ export default function ChartSuggestions({ data, onCreateChart }: Props) {
 
   function analyzeColumn(key: string) {
 
-    const values = data.map(r => r[key]).filter(v => v != null)
+    const values = data
+      .map(r => r[key])
+      .filter(v => v !== null && v !== undefined)
 
     const unique = new Set(values)
 
-    const sample = values[0]
+    const type = detectColumnType(values)
 
     return {
       key,
       uniqueCount: unique.size,
       total: values.length,
-      isNumber: typeof sample === "number",
-      isDate: !isNaN(Date.parse(sample)),
-      isText: typeof sample === "string"
+      isNumber: type === "number",
+      isDate: type === "date",
+      isText: type === "text"
     }
+  }
+
+  function detectColumnType(values: any[]) {
+
+    let numberCount = 0
+    let dateCount = 0
+    let textCount = 0
+
+    for (const v of values) {
+
+      if (v === null || v === undefined || v === "") continue
+
+      const value = String(v).trim()
+
+      const num = Number(value)
+
+      if (!isNaN(num) && value !== "") {
+        numberCount++
+        continue
+      }
+
+      const date = Date.parse(value)
+
+      if (!isNaN(date)) {
+        dateCount++
+        continue
+      }
+
+      textCount++
+    }
+
+    const total = numberCount + dateCount + textCount
+
+    if (total === 0) return "text"
+
+    if (numberCount / total > 0.7) return "number"
+
+    if (dateCount / total > 0.7) return "date"
+
+    return "text"
   }
 
   const analysis = columns.map(analyzeColumn)

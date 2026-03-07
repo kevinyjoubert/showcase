@@ -198,12 +198,12 @@ export default function ExcelDashboard({ data }: Props) {
 
         {/* SIDEBAR */}
         <div
-          className={`border-l bg-white flex flex-col transition-all duration-300
+          className={`border-l bg-white flex flex-col transition-all duration-300 shadow-[-6px_0_12px_rgba(0,0,0,0.06)]
           ${sidebarOpen ? "w-[320px]" : "w-3 overflow-hidden"}`}
         >
 
           {/* HEADER */}
-          <div className="p-4 border-b">
+          <div className="p-4 border-b bg-slate-50 shadow-[0_2px_4px_rgba(0,0,0,0.04)]">
             <h2 className="font-semibold text-slate-800">
               Sugestões de Gráficos
             </h2>

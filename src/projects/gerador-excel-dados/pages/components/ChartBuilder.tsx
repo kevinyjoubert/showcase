@@ -38,9 +38,11 @@ export default function ChartBuilder({ columns, onCreateChart }: Props) {
   }
 
   return (
-    <div className="p-5 space-y-5">
+    // <div className="p-5 space-y-5">
+    <div className="p-5 pt-0 space-y-5">
 
-      <div>
+      {/* <div> */}
+      <div className="px-5 py-3 -mx-5 bg-slate-50 border-b shadow-[0_1px_3px_rgba(0,0,0,0.06)]">
         <h3 className="text-xl font-semibold text-slate-800">
           Criar gráfico
         </h3>
