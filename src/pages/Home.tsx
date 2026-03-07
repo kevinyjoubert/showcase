@@ -71,18 +71,18 @@ export default function Home() {
               <ScrollReveal delay={0.3}>
                 <div className="flex items-center gap-3">
                   <div className="flex -space-x-2">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[hsl(var(--accent-indigo))] text-xs font-bold text-white ring-2 ring-background">
-                      KJ
+                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[hsl(var(--accent-purple-red))] text-xs font-bold text-white ring-2 ring-background">
+                      BP
                     </div>
                     <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[hsl(var(--accent-rose))] text-xs font-bold text-white ring-2 ring-background">
                       LG
                     </div>
-                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[hsl(var(--accent-purple-red))] text-xs font-bold text-white ring-2 ring-background">
-                      BP
+                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[hsl(var(--accent-indigo))] text-xs font-bold text-white ring-2 ring-background">
+                      KJ
                     </div>
                   </div>
                   <span className="text-sm text-muted-foreground">
-                    Keviny Joubert, Laryssa Gabriela & Beatriz Paiva
+                    Beatriz Paiva, Laryssa Gabriela & Keviny Joubert
                   </span>
                 </div>
               </ScrollReveal>
@@ -97,7 +97,7 @@ export default function Home() {
                   </a>
                   <a
                     href="#sobre"
-                    className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+                    className="flex items-center gap-2 rounded-full border border-border px-7 py-3 text-sm font-medium text-foreground transition-all duration-200 hover:border-[hsl(var(--accent-indigo)/0.3)] hover:bg-[hsl(var(--accent-indigo-light))]"
                   >
                     Sobre nós
                     <span className="text-[hsl(var(--accent-indigo))]">→</span>
@@ -107,33 +107,50 @@ export default function Home() {
             </div>
 
             {/* Right column — tech stack */}
-            <ScrollReveal delay={0.2} direction="right">
-              <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-                <div className="mb-4 flex items-center gap-2">
-                  <span className="h-3 w-3 rounded-full bg-[hsl(var(--accent-rose)/0.6)]" />
-                  <span className="h-3 w-3 rounded-full bg-[hsl(var(--accent-indigo)/0.4)]" />
-                  <span className="ml-2 font-mono text-xs text-muted-foreground">stack.config</span>
-                </div>
-
-                <div className="grid grid-cols-4 gap-3">
-                  {[
-                    { icon: "⚛️", name: "React" },
-                    { icon: "🔷", name: "TypeScript" },
-                    { icon: "🟢", name: "Node.js" },
-                    { icon: "🐍", name: "Python" },
-                    { icon: "🗄️", name: "SQL" },
-                    { icon: "🐳", name: "Docker" },
-                    { icon: "☁️", name: "AWS" },
-                    { icon: "🔌", name: "APIs REST" },
-                  ].map((tech) => (
-                    <div
-                      key={tech.name}
-                      className="flex flex-col items-center gap-2 rounded-xl border border-border bg-background p-4 transition-colors hover:bg-accent"
-                    >
-                      <span className="text-2xl">{tech.icon}</span>
-                      <span className="text-xs text-muted-foreground">{tech.name}</span>
+            <ScrollReveal delay={0.15} direction="right">
+              <div className="relative">
+                <div className="absolute -inset-px rounded-2xl bg-gradient-to-br from-[hsl(var(--accent-indigo)/0.3)] via-transparent to-[hsl(var(--accent-rose)/0.2)] blur-sm" />
+                <div className="relative rounded-2xl border border-border/60 bg-card p-6 shadow-xl shadow-[hsl(var(--accent-indigo)/0.06)]">
+                  <div className="mb-5 flex items-center justify-between">
+                    <div className="flex items-center gap-1.5">
+                      <div className="h-2.5 w-2.5 rounded-full bg-[hsl(var(--accent-rose)/0.7)]" />
+                      <div className="h-2.5 w-2.5 rounded-full bg-yellow-400/70" />
+                      <div className="h-2.5 w-2.5 rounded-full bg-emerald-400/70" />
                     </div>
-                  ))}
+                    <span className="font-mono text-[11px] text-muted-foreground/60">
+                      stack.config.ts
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-4 gap-2.5">
+                    {[
+                      { icon: "🤖", name: "IA & LLMs" },
+                      { icon: "📊", name: "Dashboards" },
+                      { icon: "⚙️", name: "Automações" },
+                      { icon: "🌐", name: "Web Apps" },
+                      { icon: "🔗", name: "APIs" },
+                      { icon: "🗄️", name: "Dados & SQL" },
+                      { icon: "☁️", name: "Cloud AWS" },
+                      { icon: "🐳", name: "DevOps" },
+                    ].map((tech) => (
+                      <div
+                        key={tech.name}
+                        className="group flex flex-col items-center gap-1.5 rounded-xl border border-border/50 bg-[hsl(var(--bg))] p-3 transition-all duration-200 hover:border-[hsl(var(--accent-indigo)/0.4)] hover:bg-[hsl(var(--accent-indigo-light))] hover:shadow-sm"
+                      >
+                        <span className="text-xl">{tech.icon}</span>
+                        <span className="text-[10px] font-medium text-muted-foreground group-hover:text-[hsl(var(--accent-indigo))]">
+                          {tech.name}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-4 rounded-lg bg-[hsl(var(--bg))] px-3 py-2.5 font-mono text-[11px]">
+                    <span className="text-[hsl(var(--accent-rose))]">const</span>
+                    <span className="text-foreground/70"> team </span>
+                    <span className="text-[hsl(var(--accent-indigo))]">=</span>
+                    <span className="text-emerald-500"> ["BP", "LG", "KJ" ]</span>
+                  </div>
                 </div>
               </div>
             </ScrollReveal>
@@ -165,6 +182,7 @@ export default function Home() {
         </div>
       </section>
 
+
       {/* ABOUT */}
       <section id="sobre" className="border-t border-border py-12">
         <div className="mx-auto max-w-6xl px-6">
@@ -186,50 +204,73 @@ export default function Home() {
             </p>
           </ScrollReveal>
 
-          
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                initials: "BP",
+                name: "Beatriz Paiva",
+                role: "Executiva Comercial",
+                desc: "Vendas, captação de clientes e contratos.",
+                color: "var(--accent-purple-red)",
+                delay: 0.26,
+              },
+              {
+                initials: "LG",
+                name: "Laryssa Gabriela",
+                role: "Desenvolvedora Full Stack",
+                desc: "Arquitetura, integrações, UX e Banco de Dados.",
+                color: "var(--accent-rose)",
+                delay: 0.18,
+              },
+              {
+                initials: "KJ",
+                name: "Keviny Joubert",
+                role: "Desenvolvedor Full Stack",
+                desc: "Arquitetura, integrações, UX e Banco de Dados.",
+                color: "var(--accent-indigo)",
+                delay: 0.1,
+              },
+            
+            ].map((member) => (
+              <ScrollReveal key={member.name} delay={member.delay}>
+                <div className="group relative overflow-hidden rounded-2xl border border-border/50 bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                  {/* Corner accent */}
+                  <div
+                    className="absolute -right-6 -top-6 h-20 w-20 rounded-full opacity-10 transition-opacity group-hover:opacity-20"
+                    style={{ backgroundColor: `hsl(${member.color})` }}
+                  />
 
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {/* Keviny */}
-            <ScrollReveal delay={0.15}>
-              <div className="group rounded-2xl border border-border bg-card p-6 text-center transition-all duration-300 hover:border-[hsl(var(--accent-indigo)/0.4)] hover:shadow-lg">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[hsl(var(--accent-indigo))] text-lg font-bold text-white ring-4 ring-[hsl(var(--accent-indigo)/0.15)]">
-                  KJ
-                </div>
-                <h4 className="text-base font-semibold text-foreground">Keviny Joubert</h4>
-                <p className="mt-1 text-sm text-[hsl(var(--accent-indigo))]">Desenvolvedor Full Stack</p>
-              </div>
-            </ScrollReveal>
+                  <div className="relative">
+                    <div
+                      className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl text-base font-black text-white"
+                      style={{
+                        background: `linear-gradient(135deg, hsl(${member.color}) 0%, hsl(${member.color} / 0.7) 100%)`,
+                        boxShadow: `0 8px 24px hsl(${member.color} / 0.3)`,
+                      }}
+                    >
+                      {member.initials}
+                    </div>
 
-            {/* Laryssa */}
-            <ScrollReveal delay={0.25}>
-              <div className="group rounded-2xl border border-border bg-card p-6 text-center transition-all duration-300 hover:border-[hsl(var(--accent-rose)/0.4)] hover:shadow-lg">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[hsl(var(--accent-rose))] text-lg font-bold text-white ring-4 ring-[hsl(var(--accent-rose)/0.15)]">
-                  LG
+                    <h4 className="text-base font-bold text-foreground">{member.name}</h4>
+                    <p
+                      className="mt-0.5 text-xs font-semibold"
+                      style={{ color: `hsl(${member.color})` }}
+                    >
+                      {member.role}
+                    </p>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                      {member.desc}
+                    </p>
+                  </div>
                 </div>
-                <h4 className="text-base font-semibold text-foreground">Laryssa Gabriela</h4>
-                <p className="mt-1 text-sm text-[hsl(var(--accent-rose))]">Desenvolvedora Full Stack</p>
-              </div>
-            </ScrollReveal>
-
-            {/* Beatriz */}
-            <ScrollReveal delay={0.35}>
-              <div className="group rounded-2xl border border-border bg-card p-6 text-center transition-all duration-300 hover:border-[hsl(var(--accent-purple-red)/0.4)] hover:shadow-lg">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[hsl(var(--accent-purple-red))] text-lg font-bold text-white ring-4 ring-[hsl(var(--accent-purple-red)/0.15)]">
-                  BP
-                </div>
-                <h4 className="text-base font-semibold text-foreground">Beatriz Paiva</h4>
-                <p className="mt-1 text-sm text-[hsl(var(--accent-purple-red))]">Executiva Comercial</p>
-                <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-                  Responsável por vendas, captação de clientes e gestão de contratos.
-                </p>
-              </div>
-            </ScrollReveal>
+              </ScrollReveal>
+            ))}
           </div>
         </div>
       </section>
 
       {/* CONTACT */}
-      <section id="contato" className="relative overflow-hidden border-t border-border py-24">
+      <section id="contato" className="relative overflow-hidden border-t border-border py-20">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute left-1/2 top-0 h-[500px] w-[600px] -translate-x-1/2 rounded-full bg-[hsl(var(--accent-purple-red)/0.06)] blur-[140px]" />
         </div>
