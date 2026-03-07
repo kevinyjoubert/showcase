@@ -1,16 +1,18 @@
 import { useState, type ReactNode } from "react"
-import { Maximize2 } from "lucide-react"
+import { Maximize2, Trash2 } from "lucide-react"
 
 interface Props {
   title: string
   description: string
   children: ReactNode
+  onDelete?: () => void
 }
 
 export default function ExpandableChartCard({
   title,
   description,
-  children
+  children,
+  onDelete
 }: Props) {
 
   const [open, setOpen] = useState(false)
@@ -19,28 +21,52 @@ export default function ExpandableChartCard({
     <>
       {/* CARD NORMAL */}
 
-      {/* <div className="relative bg-white rounded-xl p-6 shadow-md border border-gray-300 flex flex-col"> */}
-        <div className="relative group bg-white rounded-xl p-6 shadow-md border border-gray-300 flex flex-col">
+      <div className="relative group bg-white rounded-xl p-6 shadow-md border border-gray-300 flex flex-col">
 
-        <button
-          onClick={() => setOpen(true)}
-          className="
-            absolute top-3 right-3
-            w-9 h-9
-            flex items-center justify-center
-            rounded-lg
-            bg-gray-100
-            hover:bg-gray-200
-            text-gray-600
-            hover:text-black
-            transition
-          "
-          title="Expandir gráfico"
-        >
-          <Maximize2 size={16} />
-        </button>
+        {/* ACTIONS */}
+        <div className="absolute top-3 right-3 flex gap-2">
 
-        <h2 className="font-semibold mb-1">{title}</h2>
+          {onDelete && (
+            <button
+              onClick={onDelete}
+              className="
+                w-9 h-9
+                flex items-center justify-center
+                rounded-lg
+                bg-red-50
+                hover:bg-red-100
+                text-red-500
+                hover:text-red-700
+                transition
+              "
+              title="Remover gráfico"
+            >
+              <Trash2 size={16} />
+            </button>
+          )}
+
+          <button
+            onClick={() => setOpen(true)}
+            className="
+              w-9 h-9
+              flex items-center justify-center
+              rounded-lg
+              bg-gray-100
+              hover:bg-gray-200
+              text-gray-600
+              hover:text-black
+              transition
+            "
+            title="Expandir gráfico"
+          >
+            <Maximize2 size={16} />
+          </button>
+
+        </div>
+
+        <h2 className="font-semibold mb-1">
+          {title}
+        </h2>
 
         <p className="text-sm text-gray-500 mb-4">
           {description}

@@ -11,12 +11,14 @@ import { Cell } from "recharts"
 
 interface Props {
   config: {
+    id: string
     type: string
     dimensions: string[]
     metric: string
     aggregation: "sum" | "count" | "avg"
   }
   data: any[]
+  onDelete?: (id: string) => void
 }
 
 /* ------------------------------------------------ */
@@ -164,7 +166,7 @@ function aggregatePie(
   })
 }
 
-export default function ChartRenderer({ config, data }: Props) {
+export default function ChartRenderer({ config, data, onDelete }: Props) {
 
   const COLORS = [
     "#2563eb", // azul
@@ -198,6 +200,7 @@ export default function ChartRenderer({ config, data }: Props) {
         <ExpandableChartCard
           title={`${config.metric} por ${dimension}`}
           description={`Agregação (${config.aggregation}) de ${config.metric}.`}
+          onDelete={() => onDelete?.(config.id)}
         >
 
           <div className="h-full">
@@ -248,6 +251,7 @@ export default function ChartRenderer({ config, data }: Props) {
         <ExpandableChartCard
           title={`${config.metric} por ${dimX} / ${dimStack}`}
           description={`Agregação (${config.aggregation}) de ${config.metric}.`}
+          onDelete={() => onDelete?.(config.id)}
         >
 
           <div className="h-full">
@@ -284,6 +288,7 @@ export default function ChartRenderer({ config, data }: Props) {
         <ExpandableChartCard
           title={`${config.metric} por ${dimension}`}
           description={`Evolução de ${config.metric} (${config.aggregation}).`}
+          onDelete={() => onDelete?.(config.id)}
         >
 
           <div className="h-full">
@@ -336,6 +341,7 @@ export default function ChartRenderer({ config, data }: Props) {
         <ExpandableChartCard
           title={`${config.metric} por ${dimX} / ${dimSeries}`}
           description={`Comparação entre ${dimSeries}.`}
+          onDelete={() => onDelete?.(config.id)}
         >
 
           <div className="h-full">
@@ -373,6 +379,7 @@ export default function ChartRenderer({ config, data }: Props) {
         <ExpandableChartCard
           title={`${config.metric} por ${dimension}`}
           description={`Distribuição percentual de ${config.metric}.`}
+          onDelete={() => onDelete?.(config.id)}
         >
 
           <div className="h-full">
@@ -410,6 +417,7 @@ export default function ChartRenderer({ config, data }: Props) {
         <ExpandableChartCard
           title={`${config.metric} por ${dimension}`}
           description={`Evolução acumulada de ${config.metric}.`}
+          onDelete={() => onDelete?.(config.id)}
         >
 
           <div className="h-full">
@@ -462,6 +470,7 @@ export default function ChartRenderer({ config, data }: Props) {
         <ExpandableChartCard
           title={`${config.metric} por ${dimX} / ${dimSeries}`}
           description={`Evolução comparativa entre ${dimSeries}.`}
+          onDelete={() => onDelete?.(config.id)}
         >
 
           <div className="h-full">
