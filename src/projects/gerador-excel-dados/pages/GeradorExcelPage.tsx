@@ -2,8 +2,39 @@ import UploadExcel from "./components/UploadExcel"
 import { Link } from "react-router-dom"
 import { ArrowLeft } from "lucide-react"
 import { Upload, BarChart3, Zap, FileText } from "lucide-react"
+import { useState } from "react"
+import ExcelDashboard from "./components/ExcelDashboard"
+import * as XLSX from "xlsx"
+
 
 export default function GeradorExcelPage() {
+
+    const [data, setData] = useState<any[] | null>(null)
+
+    function handleFile(file: File) {
+        const reader = new FileReader()
+
+        reader.onload = (e) => {
+            const data = new Uint8Array(e.target?.result as ArrayBuffer)
+
+            const workbook = XLSX.read(data, { type: "array" })
+
+            const sheetName = workbook.SheetNames[0]
+
+            const sheet = workbook.Sheets[sheetName]
+
+            const json = XLSX.utils.sheet_to_json(sheet)
+
+            setData(json as any[])
+        }
+
+        reader.readAsArrayBuffer(file)
+    }
+
+    if (data) {
+        return <ExcelDashboard data={data} />
+    }
+
     return (
         <div className="h-screen w-screen bg-slate-50 flex items-center justify-center overflow-hidden">
 
@@ -53,7 +84,7 @@ export default function GeradorExcelPage() {
                     </p>
 
                     <div className="mt-6 w-full max-w-xl">
-                        <UploadExcel />
+                        <UploadExcel onFile={handleFile} />
                     </div>
 
                 </section>

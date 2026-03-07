@@ -2,7 +2,11 @@ import { useRef } from "react"
 
 import { CloudUpload } from "lucide-react"
 
-export default function UploadExcel() {
+interface Props {
+    onFile: (file: File) => void
+}
+
+export default function UploadExcel({ onFile }: Props) {
 
     const inputRef = useRef<HTMLInputElement>(null)
 
@@ -12,10 +16,9 @@ export default function UploadExcel() {
 
     function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
         const file = e.target.files?.[0]
-
         if (!file) return
 
-        console.log("Arquivo enviado:", file)
+        onFile(file)
     }
 
     return (
