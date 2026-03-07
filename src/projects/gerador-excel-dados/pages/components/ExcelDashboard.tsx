@@ -39,31 +39,31 @@ export default function ExcelDashboard({ data }: Props) {
     "split" | "gridMax" | "chartsMax" | "chartsHidden"
   >("split")
 
-
   function removeChart(id: string) {
     setCharts(prev => prev.filter(c => c.id !== id))
   }
 
-
   function addChart(config: Omit<ChartConfig, "id">) {
-    setCharts((prev) => [
+
+    setCharts(prev => [
       ...prev,
       {
         ...config,
         id: crypto.randomUUID()
       }
     ])
+    
   }
 
   const columns: ColDef[] =
     data.length > 0
       ? Object.keys(data[0]).map((key) => ({
-        field: key,
-        sortable: true,
-        filter: true,
-        resizable: true,
-        editable: true
-      }))
+          field: key,
+          sortable: true,
+          filter: true,
+          resizable: true,
+          editable: true
+        }))
       : []
 
   const columnNames = data.length ? Object.keys(data[0]) : []
@@ -83,8 +83,8 @@ export default function ExcelDashboard({ data }: Props) {
               onClick={() => setLayout("split")}
               className={`flex items-center gap-2 px-3 py-1.5 text-sm rounded-md transition
               ${layout === "split"
-                  ? "bg-blue-600 text-white shadow"
-                  : "text-slate-600 hover:bg-slate-100"}`}
+                ? "bg-blue-600 text-white shadow"
+                : "text-slate-600 hover:bg-slate-100"}`}
             >
               <Layout size={14} />
               Dividir
@@ -94,8 +94,8 @@ export default function ExcelDashboard({ data }: Props) {
               onClick={() => setLayout("gridMax")}
               className={`flex items-center gap-2 px-3 py-1.5 text-sm rounded-md transition
               ${layout === "gridMax"
-                  ? "bg-blue-600 text-white shadow"
-                  : "text-slate-600 hover:bg-slate-100"}`}
+                ? "bg-blue-600 text-white shadow"
+                : "text-slate-600 hover:bg-slate-100"}`}
             >
               <Maximize2 size={14} />
               Dashboard
@@ -105,8 +105,8 @@ export default function ExcelDashboard({ data }: Props) {
               onClick={() => setLayout("chartsMax")}
               className={`flex items-center gap-2 px-3 py-1.5 text-sm rounded-md transition
               ${layout === "chartsMax"
-                  ? "bg-blue-600 text-white shadow"
-                  : "text-slate-600 hover:bg-slate-100"}`}
+                ? "bg-blue-600 text-white shadow"
+                : "text-slate-600 hover:bg-slate-100"}`}
             >
               <Maximize2 size={14} />
               Gráficos
@@ -119,8 +119,9 @@ export default function ExcelDashboard({ data }: Props) {
         {/* DASHBOARD */}
         {(layout === "split" || layout === "gridMax" || layout === "chartsHidden") && (
           <div
-            className={`ag-theme-quartz rounded-lg border overflow-hidden ${layout === "split" ? "h-1/2" : "flex-1"
-              }`}
+            className={`ag-theme-quartz rounded-lg border overflow-hidden ${
+              layout === "split" ? "h-1/2" : "flex-1"
+            }`}
           >
 
             <AgGridReact
@@ -150,8 +151,9 @@ export default function ExcelDashboard({ data }: Props) {
         {/* GRÁFICOS */}
         {(layout === "split" || layout === "chartsMax") && (
           <div
-            className={`overflow-auto ${layout === "split" ? "h-1/2" : "flex-1"
-              }`}
+            className={`overflow-auto ${
+              layout === "split" ? "h-1/2" : "flex-1"
+            }`}
           >
 
             {charts.length === 0 && (
@@ -162,7 +164,12 @@ export default function ExcelDashboard({ data }: Props) {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {charts.map((chart) => (
-                <ChartRenderer key={chart.id} config={chart} data={data} onDelete={removeChart} />
+                <ChartRenderer
+                  key={chart.id}
+                  config={chart}
+                  data={data}
+                  onDelete={removeChart}
+                />
               ))}
             </div>
 
@@ -208,7 +215,10 @@ export default function ExcelDashboard({ data }: Props) {
 
           {/* SUGESTÕES */}
           <div className="flex-1 overflow-auto">
-            <ChartSuggestions data={data} />
+            <ChartSuggestions
+              data={data}
+              onCreateChart={addChart}
+            />
           </div>
 
           {/* BUILDER */}
