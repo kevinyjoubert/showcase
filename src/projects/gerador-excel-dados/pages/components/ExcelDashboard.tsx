@@ -67,31 +67,47 @@ export default function ExcelDashboard({ data }: Props) {
       <div className="flex-1 flex flex-col p-6 gap-4">
 
         {/* CONTROLES */}
-        <div className="flex items-center gap-3 text-sm">
+        <div className="flex items-center gap-3">
 
-          <button
-            onClick={() => setLayout("split")}
-            className="flex items-center gap-1 px-3 py-1 border rounded-md"
-          >
-            <Layout size={14} />
-            Dividir
-          </button>
+          <div className="flex bg-white border border-slate-200 rounded-lg p-1 shadow-sm">
 
-          <button
-            onClick={() => setLayout("gridMax")}
-            className="flex items-center gap-1 px-3 py-1 border rounded-md"
-          >
-            <Maximize2 size={14} />
-            Dashboard
-          </button>
+            <button
+              onClick={() => setLayout("split")}
+              className={`flex items-center gap-2 px-3 py-1.5 text-sm rounded-md transition
+        ${layout === "split"
+                  ? "bg-blue-600 text-white shadow"
+                  : "text-slate-600 hover:bg-slate-100"
+                }`}
+            >
+              <Layout size={14} />
+              Dividir
+            </button>
 
-          <button
-            onClick={() => setLayout("chartsMax")}
-            className="flex items-center gap-1 px-3 py-1 border rounded-md"
-          >
-            <Maximize2 size={14} />
-            Gráficos
-          </button>
+            <button
+              onClick={() => setLayout("gridMax")}
+              className={`flex items-center gap-2 px-3 py-1.5 text-sm rounded-md transition
+        ${layout === "gridMax"
+                  ? "bg-blue-600 text-white shadow"
+                  : "text-slate-600 hover:bg-slate-100"
+                }`}
+            >
+              <Maximize2 size={14} />
+              Dashboard
+            </button>
+
+            <button
+              onClick={() => setLayout("chartsMax")}
+              className={`flex items-center gap-2 px-3 py-1.5 text-sm rounded-md transition
+        ${layout === "chartsMax"
+                  ? "bg-blue-600 text-white shadow"
+                  : "text-slate-600 hover:bg-slate-100"
+                }`}
+            >
+              <Maximize2 size={14} />
+              Gráficos
+            </button>
+
+          </div>
 
         </div>
 
