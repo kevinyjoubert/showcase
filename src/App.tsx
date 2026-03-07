@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Splash from "./pages/Splash";
 import Home from "./pages/Home";
+import ScrollToTop from "./components/ui/ScrollToTop";
 import LinuxDesktop from "./projects/sistema1/LinuxDesktop";
 import Dashboards from "./projects/dashboards/Charts"
 
@@ -16,6 +17,7 @@ export default function App() {
       <TooltipProvider>
         <Sonner />
         <BrowserRouter>
+        <ScrollToTop />
           <Routes>
             <Route path="/" element={<Splash />} />
             <Route path="/home" element={<Home />} />
