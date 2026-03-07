@@ -16,12 +16,12 @@ export const projects: Project[] = [
     image: "/placeholder.svg",
   },
   {
-    title: "Dashboard Analytics",
+    title: "Dashboards Analíticos",
     description:
-      "Painel de análise de dados com gráficos interativos, filtros dinâmicos e exportação de relatórios.",
+      "Dashboard interativo para exploração de dados em tempo real, com gráficos dinâmicos, filtros avançados e geração de relatórios. Projetado para transformar grandes volumes de dados em insights claros para tomada de decisão.",
     techs: ["React", "Recharts", "Node.js"],
     slug: "dashboards",
-    image: "/placeholder.svg",
+    image: "public/images/dashboards/dashboards.jpg",
   },
   {
     title: "API Gateway",
