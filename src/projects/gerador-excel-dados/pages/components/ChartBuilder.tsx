@@ -169,6 +169,7 @@ export default function ChartBuilder({ columns, onCreateChart }: Props) {
           <option value="bar">Barra</option>
           <option value="line">Linha</option>
           <option value="pie">Pizza</option>
+          <option value="area">Área</option>
         </select>
       </div>
 

@@ -1,6 +1,8 @@
 import { BarChartComponent } from "../../../../components/charts/BarChart"
 import StackedBarChart from "../../../../components/charts/StackedBarChart"
 import { LineChartComponent } from "../../../../components/charts/LineChart"
+import { PieChartComponent } from "../../../../components/charts/PieChart"
+import { AreaChartComponent } from "../../../../components/charts/AreaChart"
 
 import ScrollReveal from "../../../../components/charts/ui/ScrollReveal"
 import ExpandableChartCard from "../../../../components/charts/ui/ExpandableChartCard"
@@ -121,6 +123,47 @@ function aggregateStacked(
   })
 }
 
+function aggregatePie(
+  data: any[],
+  dimension: string,
+  metric: string,
+  aggregation: "sum" | "count" | "avg"
+) {
+
+  const map: Record<string, number[]> = {}
+
+  for (const row of data) {
+
+    const key = row[dimension]
+
+    if (!map[key]) map[key] = []
+
+    const value = Number(row[metric]) || 0
+
+    map[key].push(value)
+  }
+
+  return Object.entries(map).map(([key, values]) => {
+
+    let result = 0
+
+    if (aggregation === "sum")
+      result = values.reduce((a, b) => a + b, 0)
+
+    if (aggregation === "avg")
+      result = values.reduce((a, b) => a + b, 0) / values.length
+
+    if (aggregation === "count")
+      result = values.length
+
+    return {
+      name: key,
+      value: result
+    }
+
+  })
+}
+
 export default function ChartRenderer({ config, data }: Props) {
 
   const COLORS = [
@@ -222,93 +265,219 @@ export default function ChartRenderer({ config, data }: Props) {
   }
 
   /* ------------------------------------------------ */
-/* LINE CHART (1 DIMENSÃO) */
-/* ------------------------------------------------ */
+  /* LINE CHART (1 DIMENSÃO) */
+  /* ------------------------------------------------ */
 
-if (config.type === "line" && config.dimensions.length === 1) {
+  if (config.type === "line" && config.dimensions.length === 1) {
 
-  const dimension = config.dimensions[0]
+    const dimension = config.dimensions[0]
 
-  const chartData = aggregateSingleDimension(
-    data,
-    dimension,
-    config.metric,
-    config.aggregation
-  )
+    const chartData = aggregateSingleDimension(
+      data,
+      dimension,
+      config.metric,
+      config.aggregation
+    )
 
-  return (
-    <ScrollReveal delay={0}>
-      <ExpandableChartCard
-        title={`${config.metric} por ${dimension}`}
-        description={`Evolução de ${config.metric} (${config.aggregation}).`}
-      >
+    return (
+      <ScrollReveal delay={0}>
+        <ExpandableChartCard
+          title={`${config.metric} por ${dimension}`}
+          description={`Evolução de ${config.metric} (${config.aggregation}).`}
+        >
 
-        <div className="h-full">
+          <div className="h-full">
 
-          <LineChartComponent
-            data={chartData}
-            xKey={dimension}
-            lines={[
-              {
-                key: config.metric,
-                color: COLORS[0]
-              }
-            ]}
-          />
+            <LineChartComponent
+              data={chartData}
+              xKey={dimension}
+              lines={[
+                {
+                  key: config.metric,
+                  color: COLORS[0]
+                }
+              ]}
+            />
 
-        </div>
+          </div>
 
-      </ExpandableChartCard>
-    </ScrollReveal>
-  )
-}
+        </ExpandableChartCard>
+      </ScrollReveal>
+    )
+  }
 
-/* ------------------------------------------------ */
-/* MULTI LINE (2 DIMENSÕES) */
-/* ------------------------------------------------ */
+  /* ------------------------------------------------ */
+  /* MULTI LINE (2 DIMENSÕES) */
+  /* ------------------------------------------------ */
 
-if (config.type === "line" && config.dimensions.length === 2) {
+  if (config.type === "line" && config.dimensions.length === 2) {
 
-  const [dimX, dimSeries] = config.dimensions
+    const [dimX, dimSeries] = config.dimensions
 
-  const chartData = aggregateStacked(
-    data,
-    dimX,
-    dimSeries,
-    config.metric,
-    config.aggregation
-  )
+    const chartData = aggregateStacked(
+      data,
+      dimX,
+      dimSeries,
+      config.metric,
+      config.aggregation
+    )
 
-  const seriesKeys = Object.keys(chartData[0] || {}).filter(
-    key => key !== dimX
-  )
+    const seriesKeys = Object.keys(chartData[0] || {}).filter(
+      key => key !== dimX
+    )
 
-  const lines = seriesKeys.map((key, index) => ({
-    key,
-    color: COLORS[index % COLORS.length]
-  }))
+    const lines = seriesKeys.map((key, index) => ({
+      key,
+      color: COLORS[index % COLORS.length]
+    }))
 
-  return (
-    <ScrollReveal delay={0}>
-      <ExpandableChartCard
-        title={`${config.metric} por ${dimX} / ${dimSeries}`}
-        description={`Comparação entre ${dimSeries}.`}
-      >
+    return (
+      <ScrollReveal delay={0}>
+        <ExpandableChartCard
+          title={`${config.metric} por ${dimX} / ${dimSeries}`}
+          description={`Comparação entre ${dimSeries}.`}
+        >
 
-        <div className="h-full">
+          <div className="h-full">
 
-          <LineChartComponent
-            data={chartData}
-            xKey={dimX}
-            lines={lines}
-          />
+            <LineChartComponent
+              data={chartData}
+              xKey={dimX}
+              lines={lines}
+            />
 
-        </div>
+          </div>
 
-      </ExpandableChartCard>
-    </ScrollReveal>
-  )
-}
+        </ExpandableChartCard>
+      </ScrollReveal>
+    )
+  }
+
+  /* ------------------------------------------------ */
+  /* PIE CHART */
+  /* ------------------------------------------------ */
+
+  if (config.type === "pie" && config.dimensions.length === 1) {
+
+    const dimension = config.dimensions[0]
+
+    const chartData = aggregatePie(
+      data,
+      dimension,
+      config.metric,
+      config.aggregation
+    )
+
+    return (
+      <ScrollReveal delay={0}>
+        <ExpandableChartCard
+          title={`${config.metric} por ${dimension}`}
+          description={`Distribuição percentual de ${config.metric}.`}
+        >
+
+          <div className="h-full">
+
+            <PieChartComponent
+              data={chartData}
+              dataKey="value"
+              nameKey="name"
+            />
+
+          </div>
+
+        </ExpandableChartCard>
+      </ScrollReveal>
+    )
+  }
+
+  /* ------------------------------------------------ */
+  /* AREA CHART */
+  /* ------------------------------------------------ */
+
+  if (config.type === "area" && config.dimensions.length === 1) {
+
+    const dimension = config.dimensions[0]
+
+    const chartData = aggregateSingleDimension(
+      data,
+      dimension,
+      config.metric,
+      config.aggregation
+    )
+
+    return (
+      <ScrollReveal delay={0}>
+        <ExpandableChartCard
+          title={`${config.metric} por ${dimension}`}
+          description={`Evolução acumulada de ${config.metric}.`}
+        >
+
+          <div className="h-full">
+
+            <AreaChartComponent
+              data={chartData}
+              xKey={dimension}
+              areas={[
+                {
+                  key: config.metric,
+                  color: "#2563eb"
+                }
+              ]}
+            />
+
+          </div>
+
+        </ExpandableChartCard>
+      </ScrollReveal>
+    )
+  }
+
+  /* ------------------------------------------------ */
+  /* MULTI AREA (2 DIMENSÕES) */
+  /* ------------------------------------------------ */
+
+  if (config.type === "area" && config.dimensions.length === 2) {
+
+    const [dimX, dimSeries] = config.dimensions
+
+    const chartData = aggregateStacked(
+      data,
+      dimX,
+      dimSeries,
+      config.metric,
+      config.aggregation
+    )
+
+    const seriesKeys = Object.keys(chartData[0] || {}).filter(
+      key => key !== dimX
+    )
+
+    const areas = seriesKeys.map((key, index) => ({
+      key,
+      color: COLORS[index % COLORS.length]
+    }))
+
+    return (
+      <ScrollReveal delay={0}>
+        <ExpandableChartCard
+          title={`${config.metric} por ${dimX} / ${dimSeries}`}
+          description={`Evolução comparativa entre ${dimSeries}.`}
+        >
+
+          <div className="h-full">
+
+            <AreaChartComponent
+              data={chartData}
+              xKey={dimX}
+              areas={areas}
+            />
+
+          </div>
+
+        </ExpandableChartCard>
+      </ScrollReveal>
+    )
+  }
 
 
 
