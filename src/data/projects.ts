@@ -36,6 +36,6 @@ export const projects: Project[] = [
         description: 'Sistema de análise de contratos jurídicos com IA para identificar cláusulas, riscos e oportunidades de melhoria.',
         techs: ['IA', 'Jurídico', 'PDF', 'Gemini'],
         slug: 'contract-analysis',
-        image: "/placeholder.svg",
+        image: "public/images/analisar-de-contrato-com-IA/analisar-de-contrato-com-IA.jpg",
     }
 ];
