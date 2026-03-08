@@ -1,7 +1,7 @@
 import UploadExcel from "./components/UploadExcel"
 import { Link } from "react-router-dom"
 import { ArrowLeft } from "lucide-react"
-import { Upload, BarChart3, Zap, FileText } from "lucide-react"
+import { Upload, BarChart3, Zap } from "lucide-react"
 import { useState } from "react"
 import ExcelDashboard from "./components/ExcelDashboard"
 import * as XLSX from "xlsx"
