@@ -24,6 +24,14 @@ export const projects: Project[] = [
     image: "public/images/dashboards/dashboards.jpg",
   },
   {
+    title: "Gerador de Dashboard a partir de Excel",
+    description:
+      "Envie um Excel e veja dashboards e insights sendo criados automaticamente..",
+    techs: ["React", "Recharts", "Node.js"],
+    slug: "gerador-excel-dados",
+    image: "public/images/gerador-excel-dados/gerador-excel-dados.jpg",
+  },
+  {
     title: "API Gateway",
     description:
       "Gateway de APIs REST com autenticação, rate limiting e documentação automática.",

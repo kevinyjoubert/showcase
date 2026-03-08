@@ -595,7 +595,15 @@ export default function Charts() {
 
                     {/* FLUXO */}
 
-                    <h3 className="text-2xl font-bold mb-6">Fluxo e Conversão</h3>
+                    <div className="flex items-center gap-4 mb-6">
+
+                        <h2 className="text-2xl font-semibold text-gray-900">
+                            Fluxo e Conversão
+                        </h2>
+
+                        <div className="flex-1 h-px bg-gray-300"></div>
+
+                    </div>
 
                     <div className="grid grid-cols-2 gap-8 mb-16">
 
