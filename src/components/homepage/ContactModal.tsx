@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
+import AnimatedCheck from "./AnimatedCheck";
 
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
@@ -89,7 +90,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
       <div className="w-full max-w-md rounded-2xl border border-border bg-white shadow-2xl overflow-hidden animate-fade-up">
 
         {/* Header */}
-        <div className="px-7 pt-6 pb-5 border-b border-border/50 bg-card">
+        <div className="px-7 pt-6 pb-5  bg-card">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
@@ -101,7 +102,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
             </div>
             <button
               onClick={onClose}
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors cursor-pointer hover:bg-muted hover:text-foreground"
             >
               ✕
             </button>
@@ -127,10 +128,11 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
         </div>
 
         {/* Body */}
+        <div style={{ height: '1px', background: 'linear-gradient(to right, transparent, hsl(var(--border)), transparent)' }} />
         <div className="px-7 py-6">
           {formState === "success" ? (
             <div className="flex flex-col items-center py-4 text-center">
-              <span className="text-5xl">🎉</span>
+              <AnimatedCheck />
               <h3 className="mt-4 text-lg font-bold text-foreground">
                 Mensagem enviada!
               </h3>
@@ -139,10 +141,10 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
               </p>
               <button
                 onClick={onClose}
-                className="mt-6 w-full rounded-xl py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+                className="mt-6 w-full rounded-xl py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90 cursor-pointer"
                 style={{
                   background:
-                    "linear-gradient(135deg, hsl(var(--accent-purple-red)) 0%, hsl(var(--accent-rose)) 100%)",
+                    "linear-gradient(135deg, hsl(var(--accent-indigo)) 0%, hsl(var(--accent-rose)/0.7) 100%)",
                 }}
               >
                 Fechar
@@ -201,7 +203,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
               <button
                 onClick={handleSubmit}
                 disabled={isDisabled}
-                className="w-full rounded-xl py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+                className="w-full rounded-xl py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
                 style={{
                   background:
                     "linear-gradient(135deg, hsl(var(--accent-indigo)) 0%, hsl(var(--accent-rose)/0.7) 100%)",

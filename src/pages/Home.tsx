@@ -4,6 +4,7 @@ import ProjectCard from "../components/homepage/ProjectCard";
 import ScrollReveal from "../components/homepage/ScrollReveal";
 import ContactModal from "../components/homepage/ContactModal";
 
+
 export default function Home() {
     const [isContactOpen, setIsContactOpen] = useState(false);
 
@@ -28,7 +29,7 @@ export default function Home() {
                         </a>
                         <button
                             onClick={() => setIsContactOpen(true)}
-                            className="rounded-full border border-[hsl(var(--accent-indigo)/0.3)] px-4 py-2 text-xs font-medium text-[hsl(var(--accent-indigo))] transition-all duration-200 hover:bg-[hsl(var(--accent-indigo-light))]"
+                            className="rounded-full border border-[hsl(var(--accent-indigo)/0.3)] px-4 py-2 cursor-pointer text-xs font-medium text-[hsl(var(--accent-indigo))] transition-all duration-200 hover:bg-[hsl(var(--accent-indigo-light))]"
                         >
                             Contato
                         </button>
@@ -159,6 +160,7 @@ export default function Home() {
             </section>
 
             {/* PROJECTS */}
+            <div style={{ height: '1px', background: 'linear-gradient(to right, transparent, hsl(var(--border)), transparent)' }} />
             <section id="projetos" className="py-20">
                 <div className="mx-auto max-w-6xl px-6">
                     <ScrollReveal>
@@ -184,7 +186,8 @@ export default function Home() {
 
 
             {/* ABOUT */}
-            <section id="sobre" className="border-t border-border py-12">
+            <div style={{ height: '1px', background: 'linear-gradient(to right, transparent, hsl(var(--border)), transparent)' }} />
+            <section id="sobre" className="py-12">
                 <div className="mx-auto max-w-6xl px-6">
                     <ScrollReveal>
                         <div className="mb-4 text-center">
@@ -276,7 +279,8 @@ export default function Home() {
             </section>
 
             {/* CONTACT */}
-            <section id="contato" className="relative border-t border-border py-28">
+            <div style={{ height: '1px', background: 'linear-gradient(to right, transparent, hsl(var(--border)), transparent)' }} />
+            <section id="contato" className="relative py-28">
                 <div className="mx-auto max-w-6xl px-6">
                     <ScrollReveal>
                         <div className="relative mx-auto max-w-2xl text-center">
@@ -301,10 +305,10 @@ export default function Home() {
                             <div className="mt-10">
                                 <button
                                     onClick={() => setIsContactOpen(true)}
-                                    className="group relative inline-flex items-center gap-3 rounded-full border border-[hsl(var(--accent-indigo)/0.2)] bg-background px-8 py-4 text-sm font-medium text-foreground transition-all duration-300 hover:border-[hsl(var(--accent-indigo)/0.5)] hover:shadow-[0_0_40px_hsl(var(--accent-indigo)/0.1)]"
+                                    className="group relative inline-flex items-center gap-3 cursor-pointer rounded-full border border-[hsl(var(--accent-indigo)/0.2)] bg-background px-8 py-4 text-sm font-medium text-foreground transition-all duration-300 hover:border-[hsl(var(--accent-indigo)/0.5)] hover:shadow-[0_0_40px_hsl(var(--accent-indigo)/0.1)]"
                                 >
                                     <span
-                                        className="flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold text-white"
+                                        className="flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold text-white "
                                         style={{
                                             background: "linear-gradient(135deg, hsl(var(--accent-indigo)), hsl(var(--accent-rose)))",
                                         }}
@@ -327,7 +331,8 @@ export default function Home() {
 
 
             {/* FOOTER */}
-            <footer className="border-t border-border py-8">
+            <div style={{ height: '1px', background: 'linear-gradient(to right, transparent, hsl(var(--border)), transparent)' }} />
+            <footer className="py-8">
                 <div className="mx-auto flex max-w-6xl items-center justify-between px-6">
                     <span className="text-sm font-bold tracking-tighter">
                         <span className="text-muted-foreground">SHOW</span>
