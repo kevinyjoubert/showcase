@@ -12,29 +12,37 @@ import GeradorExcelPage from "@/projects/gerador-excel-dados/pages/GeradorExcelP
 const queryClient = new QueryClient();
 
 export default function App() {
-  return (
-    <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-        <ScrollToTop />
-          <Routes>
-            <Route path="/" element={<Splash />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/projects/sistema1" element={<LinuxDesktop />} />
-
-            <Route
-              path="/projects/dashboards"
-              element={<Dashboards />}
-            />
-
-            <Route
-              path="/projects/gerador-excel-dados"
-              element={<GeradorExcelPage />}
-            />
-
-            <Route path="/projects/sistema3" element={<div>Sistema 3</div>} />
-            <Route path="/projects/contract-analysis" element={<ContractAnalysis />} />
-          </Routes>
-        </BrowserRouter>
-    </QueryClientProvider>
-  )
+    return (
+        <QueryClientProvider client={queryClient}>
+            <BrowserRouter>
+                <ScrollToTop />
+                <Routes>
+                    <Route 
+                        path="/" 
+                        element={<Splash />} 
+                    />
+                    <Route 
+                        path="/home" 
+                        element={<Home />} 
+                    />
+                    <Route 
+                        path="/projects/sistema1" 
+                        element={<LinuxDesktop />} 
+                    />
+                    <Route
+                        path="/projects/dashboards"
+                        element={<Dashboards />}
+                    />
+                    <Route
+                        path="/projects/gerador-excel-dados"
+                        element={<GeradorExcelPage />}
+                    />
+                    <Route 
+                        path="/projects/contract-analysis" 
+                        element={<ContractAnalysis />} 
+                    />
+                </Routes>
+            </BrowserRouter>
+        </QueryClientProvider>
+    )
 }
