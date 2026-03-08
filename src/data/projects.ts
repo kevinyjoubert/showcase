@@ -7,14 +7,14 @@ export type Project = {
 };
 
 export const projects: Project[] = [
-    {
-        title: "Sistema Desktop Linux",
-        description:
-            "Simulação de um ambiente desktop Linux completo, com gerenciador de janelas, terminal e aplicativos integrados.",
-        techs: ["React", "TypeScript", "Tailwind"],
-        slug: "sistema1",
-        image: "/placeholder.svg",
-    },
+    // {
+    //     title: "Sistema Desktop Linux",
+    //     description:
+    //         "Simulação de um ambiente desktop Linux completo, com gerenciador de janelas, terminal e aplicativos integrados.",
+    //     techs: ["React", "TypeScript", "Tailwind"],
+    //     slug: "sistema1",
+    //     image: "/placeholder.svg",
+    // },
     {
         title: "Dashboards Analíticos",
         description:
