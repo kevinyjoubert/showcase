@@ -1,9 +1,9 @@
 export type Project = {
-  title: string;
-  description: string;
-  techs: string[];
-  slug: string;
-  image: string;
+    title: string;
+    description: string;
+    techs: string[];
+    slug: string;
+    image: string;
 };
 
 export const projects: Project[] = [
@@ -37,5 +37,12 @@ export const projects: Project[] = [
         techs: ['IA', 'Jurídico', 'PDF', 'Gemini'],
         slug: 'contract-analysis',
         image: "public/images/analisar-de-contrato-com-IA/analisar-de-contrato-com-IA.jpg",
+    },
+    {
+        title: 'Gerador de Proposta Comercial em PDF',
+        description: 'Sistema web que permite preencher um formulário simples e gerar automaticamente uma proposta comercial profissional em PDF com layout elegante e pronto para envio ao cliente.',
+        techs: ['React', 'TypeScript', 'Tailwind', 'PDF'],
+        slug: 'gerador-pdf',
+        image: "/images/gerador-pdf/gerador-pdf.jpg",
     }
 ];

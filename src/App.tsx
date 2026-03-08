@@ -8,6 +8,7 @@ import LinuxDesktop from "./projects/sistema1/LinuxDesktop";
 import Dashboards from "./projects/dashboards/Charts"
 import ContractAnalysis from "./projects/contract-analysis/ContractAnalysis";
 import GeradorExcelPage from "@/projects/gerador-excel-dados/pages/GeradorExcelPage"
+import GeradorProposta from "@/projects/gerador-pdf/GeradorProposta"
 
 const queryClient = new QueryClient();
 
@@ -40,6 +41,10 @@ export default function App() {
                     <Route 
                         path="/projects/contract-analysis" 
                         element={<ContractAnalysis />} 
+                    />
+                    <Route 
+                        path="/projects/gerador-pdf" 
+                        element={<GeradorProposta />} 
                     />
                 </Routes>
             </BrowserRouter>
