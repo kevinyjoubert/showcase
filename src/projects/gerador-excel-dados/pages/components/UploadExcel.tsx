@@ -24,7 +24,7 @@ export default function UploadExcel({ onFile }: Props) {
     return (
         <div
             onClick={openFile}
-            className="border-2 border-dashed border-blue-300 rounded-2xl p-12 bg-white hover:border-blue-500 transition cursor-pointer max-w-xl mx-auto"
+            className="border-2 border-dashed border-blue-200 rounded-2xl p-12 bg-white hover:border-blue-500 transition cursor-pointer max-w-xl mx-auto"
         >
 
             <input

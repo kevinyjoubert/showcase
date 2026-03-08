@@ -109,7 +109,7 @@ export default function GeradorExcelPage() {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
 
                         <FlowCard
                             icon={<Upload size={22} />}
@@ -135,13 +135,13 @@ export default function GeradorExcelPage() {
                             description="Identifique tendências, padrões e oportunidades escondidas nos dados."
                         />
 
-                        <FlowCard
+                        {/* <FlowCard
                             icon={<FileText size={22} />}
                             bg="bg-red-100"
                             color="text-red-500"
                             title="Gere um Relatório"
                             description="Exporte um relatório profissional em PDF pronto para compartilhar."
-                        />
+                        /> */}
 
                     </div>
 
