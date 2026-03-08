@@ -3,9 +3,9 @@
 import { useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
 
-const EMAILJS_SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-const EMAILJS_PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 
 interface ContactModalProps {
@@ -89,38 +89,37 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
       <div className="w-full max-w-md rounded-2xl border border-border bg-white shadow-2xl overflow-hidden animate-fade-up">
 
         {/* Header */}
-        <div
-          className="px-7 pt-6 pb-5"
-          style={{
-            background:
-              "linear-gradient(135deg, hsl(var(--accent-purple-red)) 0%, hsl(var(--accent-rose)) 100%)",
-          }}
-        >
+        <div className="px-7 pt-6 pb-5 border-b border-border/50 bg-card">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-white/70">
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
                 Fale com a gente
               </p>
-              <h2 className="mt-1 text-xl font-bold tracking-tight text-white">
+              <h2 className="mt-1 text-xl font-bold tracking-tight text-foreground">
                 Novo Contato
               </h2>
             </div>
             <button
               onClick={onClose}
-              className="flex h-8 w-8 items-center justify-center rounded-full bg-white/15 text-white transition-colors hover:bg-white/25"
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             >
               ✕
             </button>
           </div>
 
           {/* Avatar Beatriz */}
-          <div className="mt-4 flex items-center gap-3">
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/20 text-xs font-bold text-white">
+          <div className="mt-4 flex items-center gap-3 rounded-xl border border-border/50 bg-muted/40 px-3 py-2.5">
+            <div
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-xs font-bold text-white"
+              style={{
+                background: "linear-gradient(135deg, hsl(var(--accent-indigo)) 0%, hsl(var(--accent-rose)/0.8) 100%)",
+              }}
+            >
               BP
             </div>
             <div>
-              <p className="text-sm font-semibold text-white">Beatriz Paiva</p>
-              <p className="text-[11px] text-white/65">
+              <p className="text-sm font-semibold text-foreground">Beatriz Paiva</p>
+              <p className="text-[11px] text-muted-foreground">
                 Executiva Comercial · responde em até 24h
               </p>
             </div>
@@ -205,7 +204,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 className="w-full rounded-xl py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
                 style={{
                   background:
-                    "linear-gradient(135deg, hsl(var(--accent-purple-red)) 0%, hsl(var(--accent-rose)) 100%)",
+                    "linear-gradient(135deg, hsl(var(--accent-indigo)) 0%, hsl(var(--accent-rose)/0.7) 100%)",
                 }}
               >
                 {formState === "loading" ? "Enviando..." : "Enviar mensagem →"}

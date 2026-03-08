@@ -276,43 +276,55 @@ export default function Home() {
             </section>
 
             {/* CONTACT */}
-            <section id="contato" className="relative overflow-hidden border-t border-border py-20">
-                <div className="pointer-events-none absolute inset-0">
-                    <div className="absolute left-1/2 top-0 h-[500px] w-[600px] -translate-x-1/2 rounded-full bg-[hsl(var(--accent-purple-red)/0.06)] blur-[140px]" />
-                </div>
-
-                <div className="relative mx-auto max-w-6xl px-6">
+            <section id="contato" className="relative border-t border-border py-28">
+                <div className="mx-auto max-w-6xl px-6">
                     <ScrollReveal>
-                        <div className="text-center">
-                            <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-                                Vamos trabalhar juntos?
-                            </h2>
-                            <p className="mx-auto mt-3 max-w-lg text-base text-muted-foreground">
-                                Entre em contato com a Beatriz para orçamentos, parcerias e contratos.
+                        <div className="relative mx-auto max-w-2xl text-center">
+                            {/* Subtle decorative line */}
+                            <div className="mx-auto mb-8 h-16 w-px bg-gradient-to-b from-transparent via-[hsl(var(--accent-indigo)/0.4)] to-[hsl(var(--accent-indigo))]" />
+
+                            <p className="mb-3 text-xs font-medium uppercase tracking-[0.3em] text-muted-foreground">
+                                Próximo passo
                             </p>
-                        </div>
-                    </ScrollReveal>
 
-                    <ScrollReveal delay={0.2}>
-                        <div className="mx-auto mt-12 max-w-md rounded-2xl border border-border bg-card p-8 text-center shadow-sm">
-                            <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-[hsl(var(--accent-purple-red))] text-xl font-bold text-white ring-4 ring-[hsl(var(--accent-purple-red)/0.2)]">
-                                BP
-                            </div>
-                            <h3 className="text-lg font-semibold text-foreground">Beatriz Paiva</h3>
-                            <p className="mt-1 text-sm text-[hsl(var(--accent-purple-red))]">Executiva Comercial</p>
+                            <h2 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+                                Vamos criar algo{" "}
+                                <span className="bg-gradient-to-r from-[hsl(var(--accent-indigo))] to-[hsl(var(--accent-rose))] bg-clip-text text-transparent">
+                                    incrível?
+                                </span>
+                            </h2>
 
-                            <div className="mt-6">
+                            <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-muted-foreground">
+                                Converse com a Beatriz sobre seu projeto. Sem compromisso, sem burocracia.
+                            </p>
+
+                            <div className="mt-10">
                                 <button
                                     onClick={() => setIsContactOpen(true)}
-                                    className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[hsl(var(--accent-purple-red))] px-6 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
+                                    className="group relative inline-flex items-center gap-3 rounded-full border border-[hsl(var(--accent-indigo)/0.2)] bg-background px-8 py-4 text-sm font-medium text-foreground transition-all duration-300 hover:border-[hsl(var(--accent-indigo)/0.5)] hover:shadow-[0_0_40px_hsl(var(--accent-indigo)/0.1)]"
                                 >
-                                    ✉️ Enviar mensagem
+                                    <span
+                                        className="flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold text-white"
+                                        style={{
+                                            background: "linear-gradient(135deg, hsl(var(--accent-indigo)), hsl(var(--accent-rose)))",
+                                        }}
+                                    >
+                                        BP
+                                    </span>
+                                    Falar com Beatriz Paiva
+                                    <span className="text-[hsl(var(--accent-indigo))] transition-transform duration-300 group-hover:translate-x-1">
+                                        →
+                                    </span>
                                 </button>
                             </div>
+
+                            {/* Subtle decorative line bottom */}
+                            <div className="mx-auto mt-8 h-16 w-px bg-gradient-to-b from-[hsl(var(--accent-indigo))] via-[hsl(var(--accent-indigo)/0.4)] to-transparent" />
                         </div>
                     </ScrollReveal>
                 </div>
             </section>
+
 
             {/* FOOTER */}
             <footer className="border-t border-border py-8">
