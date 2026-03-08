@@ -1,209 +1,314 @@
-import { BarChart3, PieChart, LineChart } from "lucide-react"
+import { BarChart3, PieChart, LineChart, ScatterChart } from "lucide-react"
 
 interface Props {
-  data: any[]
-  onCreateChart: (config: {
-    type: string
-    dimensions: string[]
-    metric: string
-    aggregation: "sum" | "count" | "avg"
-  }) => void
+    data: any[]
+    onCreateChart: (config: {
+        type: string
+        dimensions: string[]
+        metric: string
+        aggregation: "sum" | "count" | "avg"
+    }) => void
 }
 
 type SuggestionConfig = {
-  type: string
-  title: string
-  description: string
-  icon: any
-  config: {
     type: string
-    dimensions: string[]
-    metric: string
-    aggregation: "sum" | "count" | "avg"
-  }
+    title: string
+    description: string
+    icon: any
+    config: {
+        type: string
+        dimensions: string[]
+        metric: string
+        aggregation: "sum" | "count" | "avg"
+    }
 }
 
 export default function ChartSuggestions({ data, onCreateChart }: Props) {
 
-  if (!data.length) return null
+    if (!data.length) return null
 
-  const columns = Object.keys(data[0])
+    const columns = Object.keys(data[0])
 
-  function analyzeColumn(key: string) {
+    function detectColumnType(values: any[]) {
 
-    const values = data
-      .map(r => r[key])
-      .filter(v => v !== null && v !== undefined)
+        let numberCount = 0
+        let dateCount = 0
+        let textCount = 0
 
-    const unique = new Set(values)
+        for (const v of values) {
 
-    const type = detectColumnType(values)
+            const value = String(v).trim()
 
-    return {
-      key,
-      uniqueCount: unique.size,
-      total: values.length,
-      isNumber: type === "number",
-      isDate: type === "date",
-      isText: type === "text"
-    }
-  }
+            if (!value) continue
 
-  function detectColumnType(values: any[]) {
+            const num = Number(value)
 
-    let numberCount = 0
-    let dateCount = 0
-    let textCount = 0
+            if (!isNaN(num)) {
+                numberCount++
+                continue
+            }
 
-    for (const v of values) {
+            const date = Date.parse(value)
 
-      if (v === null || v === undefined || v === "") continue
+            if (!isNaN(date)) {
+                dateCount++
+                continue
+            }
 
-      const value = String(v).trim()
+            textCount++
+        }
 
-      const num = Number(value)
+        const total = numberCount + dateCount + textCount
 
-      if (!isNaN(num) && value !== "") {
-        numberCount++
-        continue
-      }
+        if (!total) return "text"
 
-      const date = Date.parse(value)
+        if (numberCount / total > 0.7) return "number"
 
-      if (!isNaN(date)) {
-        dateCount++
-        continue
-      }
+        if (dateCount / total > 0.7) return "date"
 
-      textCount++
+        return "text"
     }
 
-    const total = numberCount + dateCount + textCount
+    function analyzeColumn(key: string) {
 
-    if (total === 0) return "text"
+        const values = data
+            .map(r => r[key])
+            .filter(v => v !== null && v !== undefined && v !== "")
 
-    if (numberCount / total > 0.7) return "number"
+        const unique = new Set(values)
 
-    if (dateCount / total > 0.7) return "date"
+        const type = detectColumnType(values)
 
-    return "text"
-  }
+        return {
+            key,
+            uniqueCount: unique.size,
+            total: values.length,
+            isNumber: type === "number",
+            isDate: type === "date",
+            isText: type === "text"
+        }
+    }
 
-  const analysis = columns.map(analyzeColumn)
+    const analysis = columns.map(analyzeColumn)
 
-  const metrics = analysis.filter(c => c.isNumber)
+    const metrics = analysis.filter(c => c.isNumber)
 
-  const dimensions = analysis.filter(
-    c => c.isText && c.uniqueCount < 20
-  )
+    const dimensions = analysis.filter(
+        c => c.isText && c.uniqueCount <= 30
+    )
 
-  const dates = analysis.filter(c => c.isDate)
+    const smallDimensions = analysis.filter(
+        c => c.isText && c.uniqueCount <= 10
+    )
 
-  const suggestions: SuggestionConfig[] = []
+    const dates = analysis.filter(c => c.isDate)
 
-  // BAR
-  if (dimensions.length && metrics.length) {
+    const suggestions: SuggestionConfig[] = []
 
-    suggestions.push({
-      type: "bar",
-      title: `${metrics[0].key} por ${dimensions[0].key}`,
-      description: "Agrupar valores numéricos por categoria",
-      icon: <BarChart3 size={18} />,
-      config: {
-        type: "bar",
-        dimensions: [dimensions[0].key],
-        metric: metrics[0].key,
-        aggregation: "sum"
-      }
-    })
+    function addSuggestion(s: SuggestionConfig) {
 
-  }
+        const exists = suggestions.some(
+            x => x.title === s.title
+        )
 
-  // LINE
-  if (dates.length && metrics.length) {
+        if (!exists && suggestions.length < 12) {
+            suggestions.push(s)
+        }
+    }
 
-    suggestions.push({
-      type: "line",
-      title: `${metrics[0].key} ao longo do tempo`,
-      description: "Evolução temporal",
-      icon: <LineChart size={18} />,
-      config: {
-        type: "line",
-        dimensions: [dates[0].key],
-        metric: metrics[0].key,
-        aggregation: "sum"
-      }
-    })
+    /*
+    BAR CHARTS
+    dimensão × métrica
+    */
 
-  }
+    for (const dim of dimensions) {
 
-  // PIE
-  if (dimensions.length && metrics.length) {
+        for (const met of metrics) {
 
-    suggestions.push({
-      type: "pie",
-      title: `Distribuição de ${metrics[0].key}`,
-      description: "Participação percentual",
-      icon: <PieChart size={18} />,
-      config: {
-        type: "pie",
-        dimensions: [dimensions[0].key],
-        metric: metrics[0].key,
-        aggregation: "sum"
-      }
-    })
+            addSuggestion({
+                type: "bar",
+                title: `${met.key} por ${dim.key}`,
+                description: `Comparação de ${met.key} entre ${dim.key}`,
+                icon: <BarChart3 size={18} />,
+                config: {
+                    type: "bar",
+                    dimensions: [dim.key],
+                    metric: met.key,
+                    aggregation: "sum"
+                }
+            })
 
-  }
+        }
 
-  // STACKED BAR
-  if (dimensions.length > 1 && metrics.length) {
+    }
 
-    suggestions.push({
-      type: "stacked",
-      title: `${metrics[0].key} por ${dimensions[0].key} e ${dimensions[1].key}`,
-      description: "Comparação entre categorias",
-      icon: <BarChart3 size={18} />,
-      config: {
-        type: "bar",
-        dimensions: [dimensions[0].key, dimensions[1].key],
-        metric: metrics[0].key,
-        aggregation: "sum"
-      }
-    })
+    /*
+    COUNT por dimensão
+    */
 
-  }
+    for (const dim of dimensions) {
 
-  return (
-    <div className="p-4 space-y-3">
+        addSuggestion({
+            type: "count",
+            title: `Quantidade por ${dim.key}`,
+            description: "Contagem de registros",
+            icon: <BarChart3 size={18} />,
+            config: {
+                type: "bar",
+                dimensions: [dim.key],
+                metric: dim.key,
+                aggregation: "count"
+            }
+        })
 
-      {suggestions.map((s, i) => (
+    }
 
-        <Suggestion
-          key={i}
-          icon={s.icon}
-          title={s.title}
-          description={s.description}
-          onClick={() => onCreateChart(s.config)}
-        />
+    /*
+    PIE charts
+    apenas para dimensões pequenas
+    */
 
-      ))}
+    for (const dim of smallDimensions) {
 
-      {!suggestions.length && (
-        <p className="text-xs text-slate-400">
-          Nenhuma sugestão automática encontrada
-        </p>
-      )}
+        for (const met of metrics) {
 
-    </div>
-  )
+            addSuggestion({
+                type: "pie",
+                title: `Distribuição de ${met.key} por ${dim.key}`,
+                description: "Participação percentual",
+                icon: <PieChart size={18} />,
+                config: {
+                    type: "pie",
+                    dimensions: [dim.key],
+                    metric: met.key,
+                    aggregation: "sum"
+                }
+            })
+
+        }
+
+    }
+
+    /*
+    STACKED BAR
+    duas dimensões
+    */
+
+    for (let i = 0; i < dimensions.length; i++) {
+
+        for (let j = i + 1; j < dimensions.length; j++) {
+
+            for (const met of metrics) {
+
+                addSuggestion({
+                    type: "stacked",
+                    title: `${met.key} por ${dimensions[i].key} e ${dimensions[j].key}`,
+                    description: "Comparação entre duas dimensões",
+                    icon: <BarChart3 size={18} />,
+                    config: {
+                        type: "bar",
+                        dimensions: [
+                            dimensions[i].key,
+                            dimensions[j].key
+                        ],
+                        metric: met.key,
+                        aggregation: "sum"
+                    }
+                })
+
+            }
+
+        }
+
+    }
+
+    /*
+    LINE
+    data × métrica
+    */
+
+    for (const d of dates) {
+
+        for (const met of metrics) {
+
+            addSuggestion({
+                type: "line",
+                title: `${met.key} ao longo de ${d.key}`,
+                description: "Evolução temporal",
+                icon: <LineChart size={18} />,
+                config: {
+                    type: "line",
+                    dimensions: [d.key],
+                    metric: met.key,
+                    aggregation: "sum"
+                }
+            })
+
+        }
+
+    }
+
+    /*
+    SCATTER
+    métrica × métrica
+    */
+
+    for (let i = 0; i < metrics.length; i++) {
+
+        for (let j = i + 1; j < metrics.length; j++) {
+
+            addSuggestion({
+                type: "scatter",
+                title: `${metrics[i].key} vs ${metrics[j].key}`,
+                description: "Correlação entre métricas",
+                icon: <ScatterChart size={18} />,
+                config: {
+                    type: "scatter",
+                    dimensions: [],
+                    metric: metrics[i].key,
+                    aggregation: "avg"
+                }
+            })
+
+        }
+
+    }
+
+    return (
+
+        <div className="p-4 space-y-3">
+
+            {suggestions.map((s, i) => (
+
+                <Suggestion
+                    key={i}
+                    icon={s.icon}
+                    title={s.title}
+                    description={s.description}
+                    onClick={() => onCreateChart(s.config)}
+                />
+
+            ))}
+
+            {!suggestions.length && (
+                <p className="text-xs text-slate-400">
+                    Nenhuma sugestão automática encontrada
+                </p>
+            )}
+
+        </div>
+
+    )
+
 }
 
 function Suggestion({ icon, title, description, onClick }: any) {
 
-  return (
-    <button
-      onClick={onClick}
-      className="
+    return (
+
+        <button
+            onClick={onClick}
+            className="
         w-full text-left
         p-3
         rounded-lg
@@ -211,17 +316,21 @@ function Suggestion({ icon, title, description, onClick }: any) {
         hover:bg-slate-50
         transition
       "
-    >
+        >
 
-      <div className="flex items-center gap-2 mb-1">
-        {icon}
-        <span className="text-sm font-medium">{title}</span>
-      </div>
+            <div className="flex items-center gap-2 mb-1">
+                {icon}
+                <span className="text-sm font-medium">
+                    {title}
+                </span>
+            </div>
 
-      <p className="text-xs text-slate-500">
-        {description}
-      </p>
+            <p className="text-xs text-slate-500">
+                {description}
+            </p>
 
-    </button>
-  )
+        </button>
+
+    )
+
 }
