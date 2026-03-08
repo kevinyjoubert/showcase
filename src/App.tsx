@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import ScrollToTop from "./components/ui/ScrollToTop";
 import LinuxDesktop from "./projects/sistema1/LinuxDesktop";
 import Dashboards from "./projects/dashboards/Charts"
+import ContractAnalysis from "./projects/contract-analysis/ContractAnalysis";
 
 const queryClient = new QueryClient();
 
@@ -20,6 +21,7 @@ export default function App() {
             <Route path="/projects/sistema1" element={<LinuxDesktop />} />
             <Route path="/projects/dashboards" element={<div><Dashboards /></div>} />
             <Route path="/projects/sistema3" element={<div>Sistema 3</div>} />
+            <Route path="/projects/contract-analysis" element={<ContractAnalysis />} />
           </Routes>
         </BrowserRouter>
     </QueryClientProvider>

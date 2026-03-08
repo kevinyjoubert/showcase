@@ -31,4 +31,12 @@ export const projects: Project[] = [
     slug: "api-gateway",
     image: "/placeholder.svg",
   }
+,
+  {
+    title: 'Análise de Contratos',
+    description: 'Sistema de análise de contratos jurídicos com IA para identificar cláusulas, riscos e oportunidades de melhoria.',
+    techs: ['IA', 'Jurídico', 'PDF', 'Gemini'],
+    slug: 'contract-analysis',
+    image: "/placeholder.svg",
+  }
 ];

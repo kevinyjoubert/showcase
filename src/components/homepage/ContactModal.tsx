@@ -3,13 +3,9 @@
 import { useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
 
-// ─── Configure aqui credenciais do EmailJS ──────────────────────────────
-// 1. Crie conta em https://emailjs.com
-// 2. Crie um Service (Gmail) e um Template
-// 3. No Template use as variáveis: {{from_name}}, {{email}}, {{empresa}}, {{reply_to}}, {{mensagem}}
-const EMAILJS_SERVICE_ID = "service_0pp4x8t";
-const EMAILJS_TEMPLATE_ID = "template_82kz5ce";
-const EMAILJS_PUBLIC_KEY = "Ce5Eejkr0NOaH2jxH";
+const EMAILJS_SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const EMAILJS_PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 
 interface ContactModalProps {

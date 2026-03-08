@@ -145,7 +145,7 @@ export default function Splash() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 2 }}
-              className="mt-6 text-xs text-white/20"
+              className="mt-6 text-xs text-white/80"
             >
               Ver projetos disponíveis
             </motion.p>
