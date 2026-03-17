@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { FileText, Upload, ArrowLeft, Shield, AlertTriangle, Sparkles, ArrowRight } from 'lucide-react';
+import { FileText, Upload, ArrowLeft, Shield, Sparkles, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface UploadScreenProps {
